@@ -2,6 +2,18 @@
 
 一座由大模型智能体驱动的 3D 小镇，**线下物理世界**与**线上社交网络（“小镇圈”）**互相影响。10 位居民各自拥有记忆、日程、情绪、人际关系和社交账号；你可以创建自己的角色走进小镇，和他们聊天、交朋友、发帖、私信，也可以当“导演”投放事件，看整座小镇怎么反应。
 
+## 截图
+
+| 第三人称漫步 | 观察者鸟瞰 |
+|---|---|
+| ![小镇](docs/screenshots/01-town.png) | ![鸟瞰](docs/screenshots/02-overview.png) |
+| **居民档案：日程 / 记忆 / 关系** | **手机“小镇圈”社交网络** |
+| ![居民](docs/screenshots/03-inspector.png) | ![小镇圈](docs/screenshots/04-social.png) |
+| **关系网络** | **居民之间的对话与约定** |
+| ![关系](docs/screenshots/05-relations.png) | ![对话](docs/screenshots/06-conversations.png) |
+
+![导演面板](docs/screenshots/07-director.png)
+
 ## 快速开始
 
 ```powershell
