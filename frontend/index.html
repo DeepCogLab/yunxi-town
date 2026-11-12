@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>云溪镇 · AI 智能体小镇</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏡</text></svg>" />
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+  <div id="world"></div>
+
+  <!-- 顶栏 -->
+  <header id="topbar">
+    <div class="brand"><span class="logo">🏡</span><span id="town-name">云溪镇</span></div>
+    <div class="clock"><span id="period-icon">🌅</span><span id="clock-label">--</span><span id="weather" class="chip">晴</span></div>
+    <div class="speed" id="speed">
+      <button data-speed="pause" title="暂停/继续 (空格)">⏸</button>
+      <button data-speed="1">1×</button>
+      <button data-speed="3">3×</button>
+      <button data-speed="6">6×</button>
+      <button data-speed="12">12×</button>
+    </div>
+    <div class="tools">
+      <button id="btn-observer" title="切换观察者模式 (V)">👁 观察</button>
+      <button id="btn-convs" title="NPC 对话记录 (C)">💬 对话</button>
+      <button id="btn-graph" title="关系网络 (R)">🕸 关系</button>
+      <button id="btn-director" title="导演面板 (G)">🎬 导演</button>
+      <button id="btn-phone" title="小镇圈 (P)">📱 小镇圈<span id="phone-badge" class="badge hidden">0</span></button>
+      <button id="btn-help" title="帮助 (H)">❓</button>
+    </div>
+    <div id="llm-chip" class="chip llm" title="大模型状态">●</div>
+  </header>
+
+  <!-- 左侧：小镇动态 -->
+  <section id="log-panel" class="panel">
+    <div class="panel-head">
+      <span>📰 小镇动态</span>
+      <div class="filters" id="log-filters">
+        <button data-f="all" class="on">全部</button>
+        <button data-f="conversation">对话</button>
+        <button data-f="social">社交</button>
+        <button data-f="plan">计划</button>
+        <button data-f="event">事件</button>
+      </div>
+      <button class="mini" id="log-toggle">—</button>
+    </div>
+    <div id="log-list"></div>
+  </section>
+
+  <!-- 角色观察面板 -->
+  <section id="inspector" class="panel hidden"></section>
+
+  <!-- 交互提示 -->
+  <div id="prompt" class="hidden"></div>
+
+  <!-- 与 NPC 对话 -->
+  <section id="chat" class="panel hidden">
+    <div class="chat-head">
+      <div class="avatar" id="chat-avatar"></div>
+      <div class="who"><b id="chat-name"></b><small id="chat-sub"></small></div>
+      <button class="mini" id="chat-close" title="结束对话 (Esc)">结束对话</button>
+    </div>
+    <div id="chat-list"></div>
+    <form id="chat-form">
+      <input id="chat-input" autocomplete="off" placeholder="说点什么……（回车发送，Esc 结束）" maxlength="300" />
+      <button type="submit">发送</button>
+    </form>
+  </section>
+
+  <!-- 手机：小镇圈 -->
+  <section id="phone" class="hidden">
+    <div class="phone-frame">
+      <div class="phone-status"><span id="phone-time">--:--</span><span>小镇圈</span><span>📶 🔋</span></div>
+      <div class="phone-nav" id="phone-nav">
+        <button data-tab="feed" class="on">动态</button>
+        <button data-tab="hot">热搜</button>
+        <button data-tab="dm">私信<span class="dot hidden" id="dm-dot"></span></button>
+        <button data-tab="notif">通知<span class="dot hidden" id="notif-dot"></span></button>
+        <button data-tab="people">居民</button>
+      </div>
+      <div class="phone-body" id="phone-body"></div>
+      <button class="phone-close" id="phone-close">收起手机 (P)</button>
+    </div>
+  </section>
+
+  <!-- 小地图 -->
+  <canvas id="minimap" width="184" height="184" title="小地图（点击地点可查看）"></canvas>
+
+  <!-- 弹窗 -->
+  <div id="modal" class="hidden"><div class="modal-card" id="modal-card"></div></div>
+
+  <!-- 进入小镇 -->
+  <div id="join" class="hidden">
+    <div class="join-card">
+      <h1>🏡 欢迎来到云溪镇</h1>
+      <p class="sub">一座由大模型智能体驱动的小镇。这里的每位居民都有自己的记忆、日程、情绪和社交账号。<br />你将作为一名刚到镇上的旅人住进云溪民宿——去认识他们吧。</p>
+      <label>你的名字<input id="join-name" maxlength="12" placeholder="例如：阿远" /></label>
+      <label>自我介绍（居民会据此认识你）<textarea id="join-bio" maxlength="120" placeholder="例如：来云溪镇采风的独立摄影师，想在这里住一个夏天。"></textarea></label>
+      <div class="colors" id="join-colors"></div>
+      <button id="join-go" class="primary">进入小镇</button>
+      <button id="join-watch" class="ghost">先以观察者身份看看</button>
+    </div>
+  </div>
+
+  <div id="toasts"></div>
+  <div id="loading"><div class="spinner"></div><p>正在连接云溪镇……</p></div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
